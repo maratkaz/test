@@ -1,0 +1,6 @@
+- name: adding user nomad to group docker
+  user:
+    name: nomad
+    groups: docker
+    append: yes
+  become: yes

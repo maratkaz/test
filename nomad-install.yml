@@ -1,0 +1,8 @@
+---
+- name: use nomad-install role playbook
+  hosts: dev
+  user: root
+  become: true
+
+  roles:
+    - role: nomad-install

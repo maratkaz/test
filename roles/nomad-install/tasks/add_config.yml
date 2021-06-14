@@ -1,0 +1,19 @@
+- name: adding server config file to server instances
+  template:
+    src: server.hcl.j2
+    dest: /etc/nomad.d/server.hcl
+    owner: nomad
+    group: nomad
+  when: nomad_servers_host_group in group_names
+  notify:
+    - enable and restart nomad service
+
+    # - name: adding client config file to client instances
+    #   template:
+    #     src: client.hcl.j2
+    #     dest: /etc/nomad.d/client.hcl
+    #     owner: nomad
+    #     group: nomad
+    #   when: nomad_servers_host_group not in group_names
+    #   notify:
+    #     - enable and restart nomad service

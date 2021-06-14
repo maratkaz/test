@@ -1,0 +1,30 @@
+---
+- name: Checking is nomad is installed
+  command: nomad --version
+  register: nomad_output
+  ignore_errors: True
+
+- block:
+
+    - name: "Add Nomad repo"
+      include: add_repo.yml
+    
+    - name: "Install role requeriments"
+      include: requeriments.yml
+
+    - name: "Firewalld rules"
+      include: firewalld.yml
+
+    - name: "Install Nomad"
+      include: install.yml
+
+    - name: "Adding user nomad to group docker"
+      include: add_nomad_to_group.yml
+
+    - name: "Add config file"
+      include: add_config.yml
+
+    - name: "Run hello-world"
+      include: run_job.yml
+    
+  when: nomad_output is not failed

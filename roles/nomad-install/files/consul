@@ -1,0 +1,17 @@
+job "consul" {
+  datacenters = ["default"]
+  group "consul" {
+    count = 1
+    task "consul" {
+      driver = "exec"
+            
+      config {
+        command = "consul"
+        args    = ["agent", "-dev","-bind={{ GetInterfaceIP \"enp0s3\" }}"]
+      }
+      artifact {
+        source = "https://releases.hashicorp.com/consul/1.6.2/consul_1.6.2_linux_amd64.zip"
+      }
+    }
+  }
+}

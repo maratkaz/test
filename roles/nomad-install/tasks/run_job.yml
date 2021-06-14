@@ -1,0 +1,42 @@
+- name: Copy hello world job file to servers
+  become: yes
+  copy: 
+    src: "{{ role_path }}/files/http-echo"
+    dest: /root
+    mode: 0644
+
+- name: Copy consul job file to servers
+  become: yes
+  copy: 
+    src: "{{ role_path }}/files/consul"
+    dest: /root
+    mode: 0644
+
+- name: Copy nginx job file to servers
+  become: yes
+  copy: 
+    src: "{{ role_path }}/files/nginx"
+    dest: /root
+    mode: 0644
+  notify:
+    - enable and restart docker service
+  
+- meta: flush_handlers
+
+- name: Pause docker come up
+  wait_for: timeout=5
+
+- name: Run consul job
+  command: nomad run consul
+
+- name: Pause consul come up
+  wait_for: timeout=15
+
+- name: Run hello-worldp job
+  command: nomad run http-echo
+
+- name: Pause hello world come up
+  wait_for: timeout=60
+
+- name: Run nginx job
+  command: nomad run nginx

@@ -1,0 +1,14 @@
+---
+- name: enable and restart nomad service
+  systemd:
+    name: nomad.service
+    enabled: yes
+    state: restarted
+    daemon_reload: yes
+
+- name: enable and restart docker service
+  service:
+    name: docker
+    enabled: yes
+    state: restarted
+    daemon_reload: yes

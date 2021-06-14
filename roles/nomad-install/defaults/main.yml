@@ -1,0 +1,14 @@
+---
+nomad_user: nomad
+nomad_group: nomad
+
+group_names: dev
+
+nomad_datacenter: default
+nomad_servers_host_group: dev
+nomad_version: 1.1.1
+nomad_network_interface: enp0s3
+
+nomad_logs_level: INFO
+nomad_logs_rotation: 24h
+nomad_logs_max_files: 7

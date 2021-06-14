@@ -1,0 +1,19 @@
+- name: FirewallD rules
+  firewalld:
+    permanent: yes
+    immediate: yes
+    port: "{{item.port}}/{{item.proto}}"
+    state: "{{item.state}}"
+  with_items:
+    - {port: "4646", proto: "tcp", state: "enabled" }
+    - {port: "4647", proto: "tcp", state: "enabled" }
+    - {port: "4648", proto: "tcp", state: "enabled" }
+    - {port: "5678", proto: "tcp", state: "enabled" }
+    - {port: "8500", proto: "tcp", state: "enabled" }
+    - {port: "8300", proto: "tcp", state: "enabled" }
+    - {port: "8600", proto: "tcp", state: "enabled" }
+    - {port: "8080", proto: "tcp", state: "enabled" }
+    - {port: "80", proto: "tcp", state: "enabled" }
+
+- name: Reload firewalld
+  command: firewall-cmd --reload

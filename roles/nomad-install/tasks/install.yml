@@ -1,0 +1,7 @@
+- name: "Install Nomad on RedHat"
+  yum:
+    pkg: nomad
+    state: latest
+  when: "ansible_os_family == 'RedHat'"
+
+
